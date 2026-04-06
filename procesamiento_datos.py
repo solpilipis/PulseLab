@@ -12,6 +12,5 @@ def filtrar_por_participante(datos, id_participante):
     """
     for participante in datos:
         if participante["id_participante"] == id_participante:
-            datos_participante = participante
-            break
-    return datos_participante
+            return participante
+    return None

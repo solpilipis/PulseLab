@@ -35,6 +35,8 @@ def cargar_datos(ruta):
     """
     diccionario = {}
     with open(ruta) as archivo:
+        archivo.readline()
+        #salteamos los titulos
         for linea in archivo:
             datos = parsear_linea(linea)
             id_participante = datos[0]
