@@ -8,7 +8,7 @@ def cargar_datos(ruta):
     ruta: La dirección del archivo.
 
     Retorna:
-    list: Lista de diccionarios por participante.
+    lista_final: list: Lista de diccionarios por participante.
     """
     diccionario = {}
     with open(ruta) as archivo:
