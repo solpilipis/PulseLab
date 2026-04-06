@@ -1,3 +1,25 @@
+def parsear_linea(linea: str):
+    """
+    Qué hace la función:
+    toma una línea de str de un archivo y la convierte en una lista procesada
+
+    Parámetros:
+    linea (str): una cadena de texto con valores separados por comas
+
+    Retorna:
+    list: una lista con los datos convertidos:
+          [ID (int), Tiempo (float), ECG (float), Fase (str), Condicion (str)]
+    """
+    partes = linea.split(",")
+
+    id_entero = int(partes[0])
+    tiempo = float(partes[1])
+    ecg = float(partes[2])
+    fase = partes[3]
+    condicion = partes[4].strip()
+    
+    return [id_entero, tiempo, ecg, fase, condicion]
+
 def cargar_datos(ruta):
     """
     Qué hace la función:
