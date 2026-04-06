@@ -17,8 +17,9 @@ def parsear_linea(linea: str):
     ecg = float(partes[2])
     fase = partes[3]
     condicion = partes[4].strip()
+    hit = int(partes[5])
     
-    return [id_entero, tiempo, ecg, fase, condicion]
+    return [id_entero, tiempo, ecg, fase, condicion, hit]
 
 def cargar_datos(ruta):
     """
