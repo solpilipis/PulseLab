@@ -33,27 +33,33 @@ def cargar_datos(ruta):
     Retorna:
     lista_final: list: Lista de diccionarios por participante.
     """
-    diccionario = {}
+    lista_final = []
     with open(ruta) as archivo:
         archivo.readline()
         #salteamos los titulos
         for linea in archivo:
             datos = parsear_linea(linea)
-            id_participante = datos[0]
-            if id_participante not in diccionario:
-                diccionario[id_participante] = {
-                    "id_participante": id_participante,
-                    "tiempo": [],
-                    "valor": [],
-                    "fase": [],
-                    "condicion_experimental": [],
-                    "hit": []}
-            diccionario[id_participante]["tiempo"].append(datos[1])
-            diccionario[id_participante]["valor"].append(datos[2])
-            diccionario[id_participante]["fase"].append(datos[3])
-            diccionario[id_participante]["condicion_experimental"].append(datos[4])
-            diccionario[id_participante]["hit"].append(datos[5])
-    lista_final = []
-    for participante in diccionario.values():
-        lista_final.append(participante)
+            id_actual = datos[0]
+            
+            diccionario_existente = None
+            for diccionario in lista_final:
+                if diccionario["id_participante"] == id_actual:
+                    diccionario_existente = diccionario
+                    break
+            if diccionario_existente is None:
+                nuevo_diccionario = {
+                "id_participante": id_actual,
+                "tiempo": [datos[1]],
+                "valor": [datos[2]],
+                "fase": [datos[3]],
+                "condicion_experimental": [datos[4]],
+                "hit": [datos[5]]}
+                lista_final.append(nuevo_diccionario)
+            else:
+                diccionario_existente["tiempo"].append(datos[1])
+                diccionario_existente["valor"].append(datos[2])
+                diccionario_existente["fase"].append(datos[3])
+                diccionario_existente["condicion_experimental"].append(datos[4])
+                diccionario_existente["hit"].append(datos[5])
+
     return lista_final
