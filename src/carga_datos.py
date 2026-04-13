@@ -17,7 +17,7 @@ def parsear_linea(linea: str):
     ecg = float(partes[2])
     fase = partes[3]
     condicion = partes[4].strip()
-    hit = int(partes[5])
+    hit = bool(partes[5])
     
     return [id_entero, tiempo, ecg, fase, condicion, hit]
 
@@ -35,8 +35,6 @@ def cargar_datos(ruta):
     """
     lista_final = []
     with open(ruta) as archivo:
-        archivo.readline()
-        #salteamos los titulos
         for linea in archivo:
             datos = parsear_linea(linea)
             id_actual = datos[0]
