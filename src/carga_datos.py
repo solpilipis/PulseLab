@@ -17,7 +17,10 @@ def parsear_linea(linea: str):
     ecg = float(partes[2])
     fase = partes[3]
     condicion = partes[4].strip()
-    hit = bool(partes[5])
+    if partes[5].strip().lower() == "true":
+        hit = True
+    else:
+        hit = False
     
     return [id_entero, tiempo, ecg, fase, condicion, hit]
 
