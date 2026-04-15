@@ -8,14 +8,26 @@ El sistema hace lo siguiente:
 6. Calcula métricas básicas
 
 Errores y Validaciones
-cargar_datos(ruta): No necesita manejar ningun error ya que se manejan en parsear_linea(linea) o en el main.py
-main.py: Puede no existir o no hallarse el archivo por eso se maneja con un except FileNotFoundError.
+
+cargar_datos(ruta): No necesita manejar ningun error ya que se manejan en parsear_linea(linea) o en el main.py.
+
+main.py: 
+
+         Puede no existir o no hallarse el archivo por eso se maneja con un except FileNotFoundError.
+         
          Puede haber un error en la conversion de datos por eso se maneja con un except ValueError.
+         
          Puede haber un error en los tipos de datos por eso se maneja con un except TypeError.
+         
          Se puede producir una division por cero cuando se calculan metricas, por eso se maneja con un except ZeroDivisionError.
 
+
 Participantes:
+
 Clara Baietti
+
 Micaela Cohen
+
 Sol Pilipis
+
 Guadalupe Silva
