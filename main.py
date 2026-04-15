@@ -34,6 +34,6 @@ except FileNotFoundError:
 except ValueError as e:
     print(f"ValueError: {e}")
 except TypeError as e:
-    print(f"TyptError: {e}")
+    print(f"TypeError: {e}")
 except ZeroDivisionError:
     print("Se intento dividir por cero.")
