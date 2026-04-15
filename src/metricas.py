@@ -77,11 +77,14 @@ def calcular_frecuencia_cardiaca(picos: list) -> float:
     
     - picos: list de floats. Lista de los tiempos en los que ocurre cada pico
 
-    Retorna: 
+    Retorna
         
     -------- 
     
     - frecuencia: float. Frecuencia cardíaca de la persona
+    
+    Errores 
+    -------
 
     - ValueError: si la lista contiene menos de 2 picos o si todos los picos corresponden al mismo tiempo 
     
@@ -105,7 +108,22 @@ def calcular_frecuencia_cardiaca(picos: list) -> float:
 
 from src.utils_ecg import detectar_picos_qrs
 
-def calcular_fc_desde_datos(datos):
+def calcular_fc_desde_datos(datos): 
+    
+    """  
+    Calcula la frecuencia cardíaca a partir de una lista de datos de senal. 
+    
+    Parámetros 
+    ---------- 
+    
+    - datos: list. Lista de diccionarios 
+    
+    Retorna 
+    ------- 
+    
+    - float. Frecuencia cardíaca a través de picos calculados. 
+    
+    """
     tiempos = []
     senal = []
     for d in datos:
