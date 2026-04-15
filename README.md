@@ -23,6 +23,10 @@ Puede haber un error en los tipos de datos por eso se maneja con un except TypeE
          
 Se puede producir una division por cero cuando se calculan metricas, por eso se maneja con un except ZeroDivisionError.
 
+metricas.py: 
+
+puede cargarse un valor no numerico, como por ejmeplo que se ecriba "uno" y no "1", esto se maneja con la funcion verificar. dentro de la funcion se maneja con un except ValueError, TypeError
+
 
 Participantes:
 
