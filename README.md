@@ -13,6 +13,18 @@ cargar_datos(ruta):
 
 No necesita manejar ningun error ya que se manejan en parsear_linea(linea) o en el main.py.
 
+parsear_linea(linea):
+
+La conversion de datos a int y float podria fallar si el archivo contiene textos a donde se esperan numeros, eso se puede manejar con un except ValueError.
+
+Si una linea del archivo que se carga en esta funcion esta incompleta o no tiene el formato que se espera, puede fallar y se maneja con un except IndexError.
+
+filtar_por_participante (datos, id_participante):
+
+Si los diccionarios no tienen la clave exacta "id_participante", el sistema podria fallar, esto se maneja con un except KeyError.
+
+Si "datos" no es una lista o sus elementos no son diccionarios, el sistema puede fallar, esto se maneja con un TypeError.
+
 main.py: 
 
 Puede no existir o no hallarse el archivo por eso se maneja con un except FileNotFoundError.

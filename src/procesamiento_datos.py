@@ -10,7 +10,11 @@ def filtrar_por_participante(datos, id_participante):
     Retorna:
     dict: El diccionario con los datos de participante requerido.
     """
-    for participante in datos:
-        if participante["id_participante"] == id_participante:
-            return participante
-    return None
+    try:  
+        for participante in datos:
+            if participante["id_participante"] == id_participante:
+                return participante
+        return None
+    except (KeyError, TypeError):
+        print("Error")
+        return None

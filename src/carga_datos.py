@@ -10,20 +10,25 @@ def parsear_linea(linea: str):
     list: una lista con los datos convertidos:
           [ID (int), Tiempo (float), ECG (float), Fase (str), Condicion (str)]
     """
-    partes = linea.split(",")
+    try:
+        partes = linea.split(",")
 
-    id_entero = int(partes[0])
-    tiempo = float(partes[1])
-    ecg = float(partes[2])
-    fase = partes[3]
-    condicion = partes[4].strip()
-    if partes[5].strip().lower() == "true":
-        hit = True
-    else:
-        hit = False
+        id_entero = int(partes[0])
+        tiempo = float(partes[1])
+        ecg = float(partes[2])
+        fase = partes[3]
+        condicion = partes[4].strip()
+        if partes[5].strip().lower() == "true":
+            hit = True
+        else:
+            hit = False
     
-    return [id_entero, tiempo, ecg, fase, condicion, hit]
+        return [id_entero, tiempo, ecg, fase, condicion, hit]
 
+    except (ValueError, IndexError):
+        print("Error")
+        return None
+    
 def cargar_datos(ruta):
     """
     Qué hace la función:
