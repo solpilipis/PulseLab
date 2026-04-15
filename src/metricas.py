@@ -10,7 +10,9 @@ def verificar (num):
         float(num)
         return True
     except (ValueError, TypeError):
+        print ("ingrese un numero valido")
         return False
+       
 
 
 def calcular_promedio_señal (lista):
