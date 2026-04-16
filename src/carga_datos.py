@@ -25,9 +25,11 @@ def parsear_linea(linea: str):
     
         return [id_entero, tiempo, ecg, fase, condicion, hit]
 
-    except (ValueError, IndexError):
-        print("Error")
-        return None
+    except ValueError:
+        raise ValueError
+    except IndexError:
+        raise IndexError
+
     
 def cargar_datos(ruta):
     """
