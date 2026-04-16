@@ -1,4 +1,5 @@
 from src.carga_datos import cargar_datos
+#from src.validar import "las funciones"
 from src.procesamiento_datos import filtrar_por_participante
 from src.metricas import calcular_promedio_señal, calcular_maximo_señal, calcular_fc_desde_datos
 try:
