@@ -52,6 +52,3 @@ else:
         except TypeError as e:
             print(f"Error: {e}")
 
-        except ValueError as e:
-            print(f"Error: {e}")
-            print("No se pudo encontrar el archivo") 
