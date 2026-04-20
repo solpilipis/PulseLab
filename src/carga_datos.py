@@ -1,3 +1,5 @@
+from src.validar import validar_fase, validar_valores_ECG
+
 def parsear_linea(linea: str):
     """
     Qué hace la función:
@@ -15,8 +17,8 @@ def parsear_linea(linea: str):
 
         id_entero = int(partes[0])
         tiempo = float(partes[1])
-        ecg = float(partes[2])
-        fase = partes[3]
+        ecg = validar_valores_ECG(partes[2]) 
+        fase = validar_fase(partes[3])
         condicion = partes[4].strip()
         if partes[5].strip().lower() == "true":
             hit = True

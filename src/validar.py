@@ -65,3 +65,37 @@ def validar_valores_ECG (valores, maxi, mini):
     
     return valores_validos 
 
+def validar_fase(fase):  
+    
+    ''' 
+    Valida que el valor de la fase sea correcto, sea "baseline" o "tarea".
+
+    Parámetros
+    ----------
+    
+    fase: str 
+        La fase indicada en el archivo
+
+    Retorna
+    --------
+    
+    str: La fase en minúsculas y sin espacios
+
+    Raises:
+   
+    TypeError: si el valor no es un string
+    ValueError: si la fase no es "baseline" o "tarea"
+    '''
+
+    if not isinstance(fase, str): 
+        
+        raise TypeError("La fase debe ser un string.") 
+        
+    fase = fase.strip().lower()
+
+    if fase not in ["baseline", "tarea"]: 
+        
+        raise ValueError("La fase es inválida.")
+
+    return fase
+
