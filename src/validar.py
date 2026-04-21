@@ -99,3 +99,35 @@ def validar_fase(fase):
 
     return fase
 
+def validar_condicion(condicion):
+    """
+    Chequea que la condición sea una de las permitidas.
+    """
+    opciones_validas = ["competencia", "cooperacion", "cooperación"]
+    
+    condicion = condicion.strip().lower()
+
+    encontrado = False
+    for opcion in opciones_validas:
+        if condicion == opcion:
+            encontrado = True
+    
+    if encontrado == False:
+        raise ValueError("La condición no es válida.")
+        
+    return condicion
+
+
+def validar_tiempo_creciente(lista_tiempos):
+    """
+    Recorre la lista y se fija que el tiempo actual sea mayor al anterior.
+    """
+    if len(lista_tiempos) == 0:
+        raise ValueError("La lista de tiempos está vacía.")
+
+    for i in range(1, len(lista_tiempos)):
+        if lista_tiempos[i] <= lista_tiempos[i-1]:
+            raise ValueError("Error: El tiempo no es creciente.")
+            
+    return True
+

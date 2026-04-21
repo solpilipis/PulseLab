@@ -1,4 +1,4 @@
-from src.validar import validar_fase, validar_valores_ECG
+from src.validar import validar_fase, validar_valores_ECG, validar_condicion
 
 def parsear_linea(linea: str):
     """
@@ -17,9 +17,9 @@ def parsear_linea(linea: str):
 
         id_entero = int(partes[0])
         tiempo = float(partes[1])
-        ecg = validar_valores_ECG(partes[2]) 
+        ecg = validar_valores_ECG(partes[2], 5.0, -5.0) 
         fase = validar_fase(partes[3])
-        condicion = partes[4].strip()
+        condicion = validar_condicion(partes[4].strip())
         if partes[5].strip().lower() == "true":
             hit = True
         else:
@@ -28,9 +28,9 @@ def parsear_linea(linea: str):
         return [id_entero, tiempo, ecg, fase, condicion, hit]
 
     except ValueError:
-        raise ValueError
+        raise ValueError("Error al convertir los datos de la línea")
     except IndexError:
-        raise IndexError
+        raise IndexError("No se encontró el ID del participante")
 
     
 def cargar_datos(ruta):
