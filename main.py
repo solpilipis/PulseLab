@@ -5,7 +5,7 @@ from src.metricas import calcular_promedio_señal, calcular_maximo_señal, calcu
 from src.validar import validar_tiempo_creciente
 
 try: 
-    datos_participantes = cargar_datos("datos/PulseLab_mock_data_error10.csv")
+    datos_participantes = cargar_datos("datos/PulseLab_mock_data.csv")
     for participante in datos_participantes: 
     
         id_participante = participante["id_participante"]
