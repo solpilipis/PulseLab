@@ -37,7 +37,55 @@ Se puede producir una division por cero cuando se calculan metricas, por eso se 
 
 metricas.py: 
 
-puede cargarse un valor no numerico, como por ejmeplo que se ecriba "uno" y no "1", esto se maneja con la funcion verificar. dentro de la funcion se maneja con un except ValueError, TypeError
+puede cargarse un valor no numerico, como por ejmeplo que se ecriba "uno" y no "1", esto se maneja con la funcion verificar. dentro de la funcion se maneja con un except ValueError, TypeError 
+
+Apartado objetos: 
+
+Clase Participante 
+
+Atributos:
+
+id
+fase (baseline / tarea)
+ecg (lista)
+condición 
+
+Métodos:
+
+_init_
+agregar_valor_ecg(valor)
+calcular_metricas()
+calcular_frecuencia_cardiaca() 
+
+Clase ValoresECG
+
+Atributos:
+
+valores (lista de floats)
+tiempos 
+fase
+
+Métodos:
+
+_init_
+normalizar()
+calcular_promedio_señal()
+calcular_maximo_señal() 
+
+Clase Experimento
+
+Atributos:
+
+participantes (lista)
+ruta_archivo
+fase
+
+Métodos:
+
+_init_
+cargar_datos()
+crear_participantes()
+obtener_resultados()
 
 
 Participantes:
