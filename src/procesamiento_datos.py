@@ -14,7 +14,6 @@ def filtrar_por_participante(datos, id_participante):
         for participante in datos:
             if participante["id_participante"] == id_participante:
                 return participante
-                break
         return None
     
     except KeyError:

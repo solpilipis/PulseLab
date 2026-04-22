@@ -31,8 +31,11 @@ def validar_valores_ECG (valores, maxi, mini):
         son los valores que son numeros y estan dentro del rango .
 
     """
+    if type(valores) != list:
+        valores = [valores]
+    
     if len(valores) == 0:
-        raise ValueError ("la lista de valores no puede etsar vacia")
+        raise ValueError ("la lista de valores no puede estar vacia")
    
     valores_numericos = [
         ]
@@ -45,12 +48,13 @@ def validar_valores_ECG (valores, maxi, mini):
             continue
         #si no es valor numerico entra en el elif 
         #si es str valido que sea un numero, sino hago un raise 
-        elif isinstance(valor, str) and valor.isdigit():
-            valor_numerico = float(valor) #lo convierto para despues ver si esta dentro del rango 
-            valores_numericos.append(valor_numerico)
-        #como no es niun valor numerico ni puede convertirse lanzo un raise
-        else:
-            raise TypeError ("el dato", valor, " no es un numero")
+        elif isinstance(valor, str):
+            try:
+                valor_numerico = float(valor) #lo convierto para despues ver si esta dentro del rango 
+                valores_numericos.append(valor_numerico)
+            except ValueError:
+                raise TypeError("el dato", valor, "no se un numero")
+
             
             
     #me fijo que este adentro del rango maxi - mini
@@ -60,10 +64,10 @@ def validar_valores_ECG (valores, maxi, mini):
         if valoor < mini or valoor > maxi:
             raise ValueError ("valor fuera de rango", valoor)
         else:
-            valores_numericos.append (valoor)
+            valores_validos.append (valoor)
             
     
-    return valores_validos 
+    return valores_validos[0]
 
 def validar_fase(fase):  
     

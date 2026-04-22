@@ -14,10 +14,14 @@ def parsear_linea(linea: str):
     """
     try:
         partes = linea.split(",")
+        if len(partes) != 6:
+            raise IndexError("El archivo no tiene el formato adecuado")
 
         id_entero = int(partes[0])
+        if id_entero <= 0:
+            raise ValueError("El id del participante es negativo")
         tiempo = float(partes[1])
-        ecg = validar_valores_ECG(partes[2]) 
+        ecg = validar_valores_ECG(partes[2], 2, 0) 
         fase = validar_fase(partes[3])
         condicion = validar_condicion(partes[4].strip())
         if partes[5].strip().lower() == "true":
@@ -27,10 +31,10 @@ def parsear_linea(linea: str):
     
         return [id_entero, tiempo, ecg, fase, condicion, hit]
 
-    except ValueError:
-        raise ValueError("Error al convertir los datos de la línea")
-    except IndexError:
-        raise IndexError("No se encontró el ID del participante")
+    except ValueError as e:
+        raise ValueError(f"Error: {e}")
+    except IndexError as e:
+        raise IndexError(f"Error: {e}")
 
     
 def cargar_datos(ruta):
