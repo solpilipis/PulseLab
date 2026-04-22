@@ -105,7 +105,21 @@ def validar_fase(fase):
 
 def validar_condicion(condicion):
     """
-    Chequea que la condición sea una de las permitidas.
+    Chequea que las condiciones sean las correctas.
+
+    Parameters
+    ----------
+    condicion : str
+        la condicion indicada en el archivo
+
+    Raises
+    ------
+    ValueError: si la condicion no esta en el archivo.
+
+    Returns
+    -------
+    condicion : si no hay error, devuelve la condicion original
+
     """
     opciones_validas = ["competencia", "cooperacion", "cooperación"]
     
@@ -124,7 +138,20 @@ def validar_condicion(condicion):
 
 def validar_tiempo_creciente(lista_tiempos):
     """
-    Recorre la lista y se fija que el tiempo actual sea mayor al anterior.
+    chequea que los tiempos sean crecientes
+    
+    Parameters
+    ----------
+    lista_tiempos : list
+
+    Raises
+    ------
+    ValueError: Si la lista de tiempos esta vacia o si el tiempo ono es creciente
+
+    Returns
+    -------
+    bool: Si la lista de tiempos tiene un formato correcto devuelve True.
+
     """
     if len(lista_tiempos) == 0:
         raise ValueError("La lista de tiempos está vacía.")

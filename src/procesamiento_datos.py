@@ -9,6 +9,10 @@ def filtrar_por_participante(datos, id_participante):
 
     Retorna:
     dict: El diccionario con los datos de participante requerido.
+    
+    Raises:
+    KeyError 
+    TypeError
     """ 
     try:
         for participante in datos:

@@ -2,7 +2,6 @@ from src.validar import validar_fase, validar_valores_ECG, validar_condicion
 
 def parsear_linea(linea: str):
     """
-    Qué hace la función:
     toma una línea de str de un archivo y la convierte en una lista procesada
 
     Parámetros:
@@ -11,6 +10,13 @@ def parsear_linea(linea: str):
     Retorna:
     list: una lista con los datos convertidos:
           [ID (int), Tiempo (float), ECG (float), Fase (str), Condicion (str)]
+
+    Raises
+    ------
+    IndexError: si el archivo no tiene el formato adecuado.
+    ValueError: si hay un participante con id negativo o hay un problema de valor
+
+
     """
     try:
         partes = linea.split(",")
