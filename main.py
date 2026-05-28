@@ -12,6 +12,8 @@ os.makedirs("graficos", exist_ok=True)
 try:
     datos = cargar_datos("datos/PulseLab_mock_data.csv")
     
+    print("Columnas en el CSV:", datos.columns)
+    
     participantes = datos["id_participante"].unique()
     
     for participante in participantes:

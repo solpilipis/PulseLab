@@ -13,5 +13,7 @@ def cargar_datos(ruta):
     Retorna:
     pandas.DataFrame: el DataFrame dcon los datos del archivo cargados.
     """
-    datos = pd.read_csv(ruta)
+    nombres = ["id_participante", "tiempo", "valor", "estado", "fase", "valido"]
+    
+    datos = pd.read_csv(ruta, names=nombres)
     return datos
