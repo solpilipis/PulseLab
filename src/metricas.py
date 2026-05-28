@@ -1,71 +1,37 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Apr  5 14:46:54 2026
+from src.utils_ecg import detectar_picos_qrs 
 
-@author: 54115
-"""
-
-def verificar (num):
-    try:
-        float(num)
-        return True
-    except (ValueError, TypeError):
-        print ("ingrese un numero valido")
-        return False
-       
-
-
-def calcular_promedio_señal (lista):
+def calcular_promedio_señal(señal):
     """
-    calcula el promedio de las señlaes ingresadas en la lista 
+    calcula el promedio de las señales ingresadas
     
     Parameters
     ----------
-    lista : list
-        señaes recolectadas en la lista
+    señal: pandas.Series. Los valores de las senales. 
 
     Returns
     -------
     promedio : float
-        promedio de todos los valores de la lista 
+        promedio de la señal
 
     """
-    
-    
-    suma = 0 
-    cantidad = 0 
-    for elemento in lista:
-        veri = verificar (elemento)
-        if veri == True: 
-            suma += elemento 
-            cantidad += 1   
-    promedio = suma / cantidad
-    return promedio 
+    return señal.mean()
         
         
-def calcular_maximo_señal (lista):
+def calcular_maximo_señal (señal):
     """
-    identifica el valor maximo de la lista 
+    Identifica el maximo de una senal
     
     Parameters
     ----------
-    lista : list
-        lista de señales recolectadas.
+    señal: pandas.Series. Valores de la señal.
 
     Returns
     -------
-    maxi : float
-        valor maximo de la lista.
+    float
+        valor maximo de la señal
 
     """
-    maxi = 0 
-    for elemento in lista: 
-        veri = verificar(elemento)
-        if veri == True: 
-            if elemento > maxi: 
-                maxi = elemento 
-    return maxi
-            
+    return señal.max()
             
 
 def calcular_frecuencia_cardiaca(picos: list) -> float: 
@@ -108,28 +74,26 @@ def calcular_frecuencia_cardiaca(picos: list) -> float:
 
     return frecuencia 
 
-from src.utils_ecg import detectar_picos_qrs
 
 def calcular_fc_desde_datos(datos): 
     
     """  
-    Calcula la frecuencia cardíaca a partir de una lista de datos de senal. 
+    Calcula la frecuencia cardíaca a partir de un dataframe.
     
     Parámetros 
     ---------- 
     
-    - datos: list. Lista de diccionarios 
+    - datos: pandas.DataFrame. dataframe con los valores de la senal.
     
     Retorna 
     ------- 
     
-    - float. Frecuencia cardíaca a través de picos calculados. 
+    - float. Frecuencia cardíaca.
     
     """
-    tiempos = []
-    senal = []
-    for d in datos:
-        tiempos.append(d["tiempo"])
-        senal.append(d["valor"])
+    tiempos = datos["tiempo"].tolist()
+    senal = datos["valor"].tolist()
+
     picos = detectar_picos_qrs(tiempos, senal)
+
     return calcular_frecuencia_cardiaca(picos)
