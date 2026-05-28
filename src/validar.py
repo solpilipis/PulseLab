@@ -22,6 +22,7 @@ def validar_valores_ECG (valores, maxi, mini):
         .si cargan una lista de valores que etsa vacia
     
         si el valor esta fuera de rango .
+        
     TypeError
         si el valor no es un numero o si no se puede convertir, por ejemplo si ingresan "a".
 
@@ -31,6 +32,7 @@ def validar_valores_ECG (valores, maxi, mini):
         son los valores que son numeros y estan dentro del rango .
 
     """
+
     if type(valores) != list:
         valores = [valores]
     
@@ -136,29 +138,21 @@ def validar_condicion(condicion):
     return condicion
 
 
-def validar_tiempo_creciente(lista_tiempos):
+def validar_tiempo_creciente(tiempos):
     """
     chequea que los tiempos sean crecientes
     
     Parameters
     ----------
-    lista_tiempos : list
+   tiempos : pandas.series
+       serie de tiempo s
 
     Raises
     ------
-    ValueError: Si la lista de tiempos esta vacia o si el tiempo ono es creciente
-
-    Returns
-    -------
-    bool: Si la lista de tiempos tiene un formato correcto devuelve True.
+    ValueError: Si los timepos no son crecientes
 
     """
-    if len(lista_tiempos) == 0:
-        raise ValueError("La lista de tiempos está vacía.")
-
-    for i in range(1, len(lista_tiempos)):
-        if lista_tiempos[i] <= lista_tiempos[i-1]:
-            raise ValueError("Error: El tiempo no es creciente.")
-            
-    return True
+    for i in range (len(tiempos) - 1 ):
+        if tiempos.iloc[i] >= tiempos.iloc[i+1]:
+            raise ValueError("los tiempos no son crecientes")
 
