@@ -16,7 +16,7 @@ st.markdown("Esta aplicación utiliza las funciones modulares del sistema PulseL
 @st.cache_data
 def cargar_datos_app():
     
-    return cargar_datos("datos/PulseLab_mock_data.csv")
+    return cargar_datos(r"C:\Users\guadi\Documents\GitHub\PulseLab\datos\PulseLab_mock_data.csv")
 
 try:
     
@@ -62,16 +62,15 @@ try:
         col3.error(frecuencia)
 
     st.subheader("Gráfico de Electrocardiograma (ECG)")
-    
 
-    fig, ax = plt.subplots(figsize=(12, 4))
-    ax.plot(tiempos, señal, color="#E91E63", linewidth=1.5)
+    fig, ax = plt.subplots(figsize=(10, 4)) # 1. Creamos la figura y los ejes
+    ax.plot(tiempos, señal, color="#E91E63", linewidth=1) # 2. Graficamos en 'ax'
     ax.set_title(f"Señal ECG - Participante {participante_seleccionado}")
     ax.set_xlabel("Tiempo (segundos)")
     ax.set_ylabel("Amplitud de la Señal")
-    ax.grid(True, linestyle="--", alpha=0.6)
- 
-    st.pyplot(fig)
+    ax.grid(True)
+    
+    st.pyplot(fig) # 3. Le pasamos explícitamente el objeto 'fig' a Streamlit
 
 except FileNotFoundError:
     st.error("❌ No se encontró el archivo de datos. Asegúrate de que 'datos/PulseLab_mock_data.csv' exista.")
