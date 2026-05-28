@@ -1,56 +1,55 @@
+import os
+import matplotlib.pyplot as plt
+
 from src.carga_datos import cargar_datos
 #from src.validar import "las funciones"
 from src.procesamiento_datos import filtrar_por_participante
 from src.metricas import calcular_promedio_señal, calcular_maximo_señal, calcular_fc_desde_datos
 from src.validar import validar_tiempo_creciente
 
-try: 
-    datos_participantes = cargar_datos("datos/PulseLab_mock_data.csv")
-    for participante in datos_participantes: 
+os.makedirs("graficos", exist_ok=True)
+
+try:
+    datos = cargar_datos("datos/PulseLab_mock_data.csv")
     
-        id_participante = participante["id_participante"]
+    participantes = datos["id_participante"].unique()
+    
+    for participante in participantes:
         
-        datos_filtrados = filtrar_por_participante(datos_participantes, id_participante)
+        datos_filtrados = filtrar_por_participante(datos, participante)
         
         tiempos = datos_filtrados["tiempo"]
         señal = datos_filtrados["valor"]
-        
+
         validar_tiempo_creciente(tiempos)
-        
+
         promedio = calcular_promedio_señal(señal)
         maximo = calcular_maximo_señal(señal)
-        
-        datos_para_metricas = []
-        cantidad_datos = len(tiempos)
-        
-        for i in range(cantidad_datos):
-            tiempo_actual = tiempos[i]
-            señal_actual = señal[i]
-            punto = {"tiempo": tiempo_actual, "valor": señal_actual}
-            datos_para_metricas.append(punto)
-        
-        frecuencia = calcular_fc_desde_datos(datos_para_metricas)
-        
-        print(f"Promedio de señal: {promedio}")
-        print(f"Máximo de señal: {maximo}")
-        print(f"Participante: {id_participante}")
-        print(f"Frecuencia Cardíaca: {frecuencia}")  
 
-except FileNotFoundError:  
-    print("No se pudo encontrar el archivo")     
+        frecuencia = calcular_fc_desde_datos(datos_filtrados)
 
+        print(f"Participante: {participante}")
+        print(f"Promedio señal: {promedio}")
+        print(f"Maximo señal: {maximo}")
+        print(f"Frecuencia cardiaca: {frecuencia}")
+        
+        plt.figure(figsize=(10, 4))
+        plt.plot(tiempos, señal)
+        plt.title(f"ECG Participante {participante}")
+        plt.xlabel("Tiempo")
+        plt.ylabel("Señal")
+        ruta = f"graficos/participante_{participante}.png"
+        plt.savefig(ruta)
+        plt.close()
+        
+except FileNotFoundError:
+    print("No se encontro el archivo")
+    
 except KeyError:
-    print("Error: Hay información incompleta de un participante.")
-
+    print("Faltan columnas o datos")
+    
 except ValueError as e:
     print(f"Error: {e}")
-
-except ZeroDivisionError:
-    print("Error: Se intentó dividir por 0.")
-
-except TypeError as e:
-    print(f"Error: {e}")
     
-except IndexError as e:
-    print(f"Error: {e}")
-
+except Exception as e:
+    print(f"Ocurrio un error inesperado: {e}")
