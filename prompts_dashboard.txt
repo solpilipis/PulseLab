@@ -1,0 +1,58 @@
+﻿====================================================================
+BITÁCORA DE PROMPTS Y DESARROLLO - DASHBOARD PULSELAB
+====================================================================
+
+
+1. EL PROMPT SEMILLA
+--------------------------------------------------------------------
+El siguiente prompt fue estructurado utilizando el marco ROCA (Rol, Objetivo, Contexto, Acción) para inicializar el desarrollo, adjuntando el documento de diseño técnico del backend:
+
+
+"Rol: Actúa como un Ingeniero de Software experto en diseño de interfaces de usuario y especialista en la librería Streamlit de Python.
+Objetivo: Tu objetivo es desarrollar el código completo para el archivo app.py, construyendo una interfaz gráfica web interactiva (Dashboard) que se integre de forma limpia sobre los módulos del backend ya existentes en nuestro repositorio.
+Contexto: Estamos construyendo "PulseLab", un sistema para cargar, procesar, validar y visualizar datos de señales ECG. Nuestro backend modular ya está terminado. A continuación, te proporciono textualmente nuestro documento de diseño actualizado (diseño.md) para que conozcas la estructura exacta del sistema y los contratos de las funciones:
+<inicio_diseño>
+[SE INCLUYÓ EL TEXTO COMPLETO DEL DOCUMENTO diseño.md]
+"
+
+
+
+
+2. REGISTRO DE ITERACIONES E HISTORIAL DE CORRECCIONES
+--------------------------------------------------------------------
+A lo largo del desarrollo, la integración del backend puro con Pandas en la interfaz requirió varias correcciones para adaptar los tipos de datos y manejar los archivos corruptos de prueba.
+
+
+- Iteración 1 (Problema de Índices en Pandas):
+  Prompt: "Subí este archivo y me lanza el siguiente error: IndexError: list index out of range. File... src\validar.py, line 72... return valores_validos[0]"
+  Solución IA: Convirtió las series de Pandas a listas puras (.tolist()) porque los índices se desfasaban al filtrar participantes.
+
+
+- Iteración 2 y 3 (Problemas de Sintaxis al reconstruir):
+  Prompt: "Ahora me lanza el siguiente error: NameError: name 'df_crudo' is not defined..." y luego "Nuevo error: SyntaxError: expected 'except' or 'finally' block"
+  Solución IA: Reescribió el archivo `app.py` completo asegurando la correcta indentación y el cierre de los bloques try-except.
+
+
+- Iteración 4, 5 y 6 (Conflicto de Tipos: Pandas vs Native Python):
+  Prompts: 
+  - "Error inesperado en el procesamiento: 'list' object has no attribute 'iloc'"
+  - "Devuelta hay un error: Error inesperado en el procesamiento: list index out of range"
+  - "Error inesperado en el procesamiento: 'list' object has no attribute 'mean'"
+  Solución IA: Se descubrió que distintas funciones del backend exigían estructuras distintas. Se dividieron las variables: la validación matemática pasó a recibir listas puras (Python), mientras que las métricas pasaron a recibir Series (Pandas) para poder usar `.iloc` y `.mean()`.
+
+
+- Iteración 7 y 8 (El Orquestador Defensivo ante archivos corruptos):
+  Prompt: "Ahora funciona perfectamente con PulseLab_mock_data, pero no ataja correctamente los errores de estos excels... Ahora ataja algunos errores correctamente pero los errores 5, 6 y 9 no los ataja y el 1 y el 10 solo los ataja en los participantes con problems..."
+  Solución IA: Implementó un "Gatekeeper" o Filtro de Calidad de Datos antes del backend matemático, iterando sobre todo el CSV de forma invisible para atrapar errores estructurales, tipos inválidos (strings en vez de booleanos) y nulos (ParserErrors) antes de renderizar la app.
+
+
+- Iteración 9 (Higiene de Datos en el archivo válido):
+  Prompt: "Ahora me salta este error con el excel que no tiene errores: Archivo Rechazado (Error de Integridad/Consistencia): Existen valores no reconocidos en 'fase'. Solo se permite: ['baseline', 'tarea']"
+  Solución IA: Añadió un bloque de limpieza higiénica (.str.strip().str.lower()) y un reparador automático de columnas cruzadas, garantizando que el CSV correcto pasara el filtro estricto.
+
+
+
+
+3. REFLEXIÓN TÉCNICA
+--------------------------------------------------------------------
+La estrategia más efectiva durante esta sesión fue combinar un prompt semilla altamente estructurado (que fijó las reglas de negocio y los contratos de las funciones para no romper el backend) con un método iterativo basado en compartir exactamente el "Traceback" (el rastro del error) de la consola. En lugar de explicar el problema conceptualmente, pegar el texto literal del error (ej. "list object has no attribute mean") permitió a la IA diagnosticar de inmediato la discrepancia entre las estructuras de Pandas y Python nativo. Además, describir el comportamiento esperado frente a los casos de prueba específicos (los archivos de error vs. el archivo limpio) forzó a la IA a abandonar las suposiciones y crear una capa de validación defensiva global mucho más robusta en el módulo orquestador.
